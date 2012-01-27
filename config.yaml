@@ -1,21 +1,21 @@
 options:
   app_name:
-    type: str 
+    type: string
     default: myapp
     description: Application Name
   repo_url:
-    type: str 
+    type: string
     default: "http://github.com/mmm/testrails.git"
     description: Application repository URL
   repo_branch:
-    type: str 
+    type: string
     default: master
     description: Application repository deployment branch
   repo_type:
-    type: str 
+    type: string
     default: git
     description: Repository type (git/bzr/...)
   install_root:
-    type: str 
+    type: string
     default: /opt
     description: Install the application in app_name under this directory
