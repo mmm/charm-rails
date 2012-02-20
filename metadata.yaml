@@ -1,8 +1,13 @@
-ensemble: formula
-name: rails-app
-revision: 11
-summary: "Ensemble formula to install Ruby on Rails"
-description: "Ensemble formula to install Ruby on Rails"
+name: rails
+summary: "juju charm to install Ruby on Rails"
+description: |
+  Rails is a full-stack, open-source web framework in Ruby for writing
+  real-world applications.
+
+  Being a full-stack framework means that all layers are built to work
+  seamlessly together. That way you don't repeat yourself and you can
+  use a single language from top to bottom. Everything from templates to
+  control flow to business logic is written in Ruby.
 requires:
   db:
     interface: mysql
