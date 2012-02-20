@@ -1,10 +1,10 @@
 #!/bin/bash
 
-ensemble-log "Database relation joined"
+juju-log "Database relation joined"
 
 host=`relation-get host`
 if [ -z "$host" ] ; then
-    ensemble-log "remote host not set yet."
+    juju-log "remote host not set yet."
     exit 0
 fi
 
@@ -30,7 +30,7 @@ update_bundle() {
 update_bundle
 
 write_database_config() {
-  ensemble-log "Writing database.yml"
+  juju-log "Writing database.yml"
   database=`relation-get database`
   user=`relation-get user`
   password=`relation-get password`
@@ -54,20 +54,20 @@ rake_will_run() {
 migrate_database() {
   cd $app_dir
   db_version=`rake RAILS_ENV=production db:version | awk '/Current version:/ { print $3 }'`
-  ensemble-log "Current database version: ${db_version}"
+  juju-log "Current database version: ${db_version}"
   if [ ${db_version} -eq 0 ]; then
-    ensemble-log "Migrating database"
+    juju-log "Migrating database"
     rake RAILS_ENV=production db:migrate
 
-    ensemble-log "Seeding database"
+    juju-log "Seeding database"
     rake RAILS_ENV=production db:seed
   fi
 }
 rake_will_run && migrate_database
 
-ensemble-log "start passenger"
+juju-log "start passenger"
 service apache2 restart
 
-#ensemble-log "opening port"
-#ensemble open-port 80
+juju-log "opening port"
+open-port 80
 

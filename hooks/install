@@ -1,8 +1,8 @@
 #!/bin/bash
 
-set -eu # -x for verbose logging to ensemble debug-log
+set -eu # -x for verbose logging to juju debug-log
 
-ensemble-log "Installing ruby, apache, passenger"
+juju-log "Installing ruby, apache, passenger"
 DEBIAN_FRONTEND=noninteractive apt-get -y install -qq ruby ruby-dev rake libapache2-mod-passenger
 DEBIAN_FRONTEND=noninteractive apt-get -y install -qq libsqlite3-dev libsqlite3-ruby
 
@@ -23,7 +23,7 @@ pull_bzr_app() {
   bzr branch $repo_url -b $repo_branch $app_dir
 }
 install_app() {
-  ensemble-log "Installing your rails app into $app_dir"
+  juju-log "Installing your rails app into $app_dir"
   pull_git_app
   chown -Rf ubuntu.ubuntu $app_dir
 }
@@ -38,7 +38,7 @@ install_bundle
 
 vhost_file="/etc/apache2/conf.d/rails.conf"
 configure_passenger() {
-  ensemble-log "Writing apache/passenger config: $vhost_file"
+  juju-log "Writing apache/passenger config: $vhost_file"
   cat > $vhost_file <<EOS
     <VirtualHost *:80>
         ServerSignature Off
