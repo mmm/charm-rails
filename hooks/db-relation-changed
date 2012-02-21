@@ -8,10 +8,6 @@ if [ -z "$host" ] ; then
     exit 0
 fi
 
-# mysql when joined to mysql
-DEBIAN_FRONTEND=noninteractive apt-get -y install -qq libmysqlclient16 libmysqlclient16-dev 
-# pgsql when joined to pgsql
-DEBIAN_FRONTEND=noninteractive apt-get -y install -qq libpgsql-ruby 
 
 install_root=`config-get install_root`
 app_name=`config-get app_name`
@@ -47,9 +43,8 @@ EOS
 }
 write_database_config
 
-
-rake_will_run() {
-  cd $app_dir && `rake RAILS_ENV=production db:version`
+database_version() {
+  `cd $app_dir && rake RAILS_ENV=production db:version | awk '/Current version:/ { print $3 }'`
 }
 migrate_database() {
   cd $app_dir
@@ -63,7 +58,7 @@ migrate_database() {
     rake RAILS_ENV=production db:seed
   fi
 }
-rake_will_run && migrate_database
+(( $(database_version) )) || migrate_database
 
 juju-log "start passenger"
 service apache2 restart
