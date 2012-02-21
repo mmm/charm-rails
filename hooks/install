@@ -5,6 +5,8 @@ set -eu # -x for verbose logging to juju debug-log
 juju-log "Installing ruby, apache, passenger"
 DEBIAN_FRONTEND=noninteractive apt-get -y install -qq ruby ruby-dev rake libapache2-mod-passenger
 DEBIAN_FRONTEND=noninteractive apt-get -y install -qq libsqlite3-dev libsqlite3-ruby
+DEBIAN_FRONTEND=noninteractive apt-get -y install -qq libmysqlclient16 libmysqlclient16-dev 
+DEBIAN_FRONTEND=noninteractive apt-get -y install -qq libpgsql-ruby 
 
 install_root=`config-get install_root`
 app_name=`config-get app_name`
@@ -25,6 +27,7 @@ pull_bzr_app() {
 install_app() {
   juju-log "Installing your rails app into $app_dir"
   pull_git_app
+  touch $app_dir/log/production.log
   chown -Rf ubuntu.ubuntu $app_dir
 }
 [ -d $app_dir ] || install_app
