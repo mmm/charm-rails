@@ -20,13 +20,18 @@ pull_git_app() {
   git clone $repo_url -b $repo_branch $app_dir
 }
 pull_bzr_app() {
-  apt-get -y install -qq git-core
+  apt-get -y install -qq bzr
   umask 022
-  bzr branch $repo_url -b $repo_branch $app_dir
+  bzr branch $repo_url $app_dir
 }
 install_app() {
   juju-log "Installing your rails app into $app_dir"
-  pull_git_app
+  case $repo_type in
+    git )
+      pull_git_app ;;
+    bzr )
+      pull_bzr_app ;;
+  esac
   touch $app_dir/log/production.log
   chown -Rf ubuntu.ubuntu $app_dir
 }
