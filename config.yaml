@@ -10,7 +10,7 @@ options:
   repo_branch:
     type: string
     default: master
-    description: Application repository deployment branch
+    description: Application branch name (git only, for bzr the branch is in the url)
   repo_type:
     type: string
     default: git
