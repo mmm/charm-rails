@@ -3,10 +3,12 @@
 set -eu # -x for verbose logging to juju debug-log
 
 juju-log "Installing ruby, apache, passenger"
-DEBIAN_FRONTEND=noninteractive apt-get -y install -qq ruby ruby-dev rake libapache2-mod-passenger
-DEBIAN_FRONTEND=noninteractive apt-get -y install -qq libsqlite3-dev libsqlite3-ruby
-DEBIAN_FRONTEND=noninteractive apt-get -y install -qq libmysqlclient16 libmysqlclient16-dev 
-DEBIAN_FRONTEND=noninteractive apt-get -y install -qq libpgsql-ruby 
+apt-get -y install -qq ruby ruby-dev
+apt-get -y install -qq ruby1.9.1 ruby1.9.1-dev
+apt-get -y install -qq rake libapache2-mod-passenger
+apt-get -y install -qq libsqlite3-dev libsqlite3-ruby
+apt-get -y install -qq libmysqlclient16 libmysqlclient16-dev 
+apt-get -y install -qq libpgsql-ruby 
 
 install_root=`config-get install_root`
 app_name=`config-get app_name`
@@ -14,6 +16,7 @@ app_dir="$install_root/$app_name"
 repo_url=`config-get repo_url`
 repo_branch=`config-get repo_branch`
 repo_type=`config-get repo_type`
+
 pull_git_app() {
   apt-get -y install -qq git-core
   umask 022
@@ -36,6 +39,12 @@ install_app() {
   chown -Rf ubuntu.ubuntu $app_dir
 }
 [ -d $app_dir ] || install_app
+
+install_rvm() {
+  juju-log "installing rvm"
+  apt-get -y install -qq ruby-rvm
+}
+install_rvm
 
 install_bundle() {
   REALLY_GEM_UPDATE_SYSTEM=true gem update --system
