@@ -1,0 +1,5 @@
+myapp:
+  app_name: myapp
+  repo_type: git
+  repo_url: "http://github.com/mmm/testrails.git"
+  repo_branch: mysql
