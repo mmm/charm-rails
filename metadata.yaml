@@ -8,6 +8,7 @@ description: |
   seamlessly together. That way you don't repeat yourself and you can
   use a single language from top to bottom. Everything from templates to
   control flow to business logic is written in Ruby.
+maintainer: Mark Mims <mark.mims@canonical.com>
 requires:
   db:
     interface: mysql
