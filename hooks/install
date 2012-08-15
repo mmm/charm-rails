@@ -7,7 +7,7 @@ apt-get -y install -qq ruby ruby-dev
 apt-get -y install -qq ruby1.9.1 ruby1.9.1-dev
 apt-get -y install -qq rake libapache2-mod-passenger
 apt-get -y install -qq libsqlite3-dev libsqlite3-ruby
-apt-get -y install -qq libmysqlclient16 libmysqlclient16-dev 
+apt-get -y install -qq libmysqlclient18 libmysqlclient-dev 
 apt-get -y install -qq libpgsql-ruby 
 
 install_root=`config-get install_root`
