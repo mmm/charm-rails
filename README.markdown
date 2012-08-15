@@ -69,3 +69,5 @@ file during deployment
 
 - write charm `/tests` for this
 
+- also add default `Gemfile` so a deployment with no config can be used as a rails development environment
+
